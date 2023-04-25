@@ -5,6 +5,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const contactRoutes = require('./routes/contact');
 const successRoutes = require('./routes/success');
+const errorRoutes=require('./routes/error');
 
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -15,9 +16,8 @@ app.use('/admin', adminRoutes); //admin route filtering
 app.use('/shop', shopRoutes); //shop route filtering
 app.use(contactRoutes); //contact us route
 app.use(successRoutes); //success route after form submission of Contact us
+app.get('/',shopRoutes); //base url 
 
 //To handle invalid routes
-app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', 'error.html'));
-})
+app.use(errorRoutes);
 app.listen(3000);
