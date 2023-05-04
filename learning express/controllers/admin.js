@@ -1,6 +1,6 @@
 const path = require('path');
 const rootDir = require('../util/path');
-const Product = require('../modules/product');
+const Product = require('../models/product');
 
 const adminGetController = (req, res, next) => {
     res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
@@ -8,9 +8,9 @@ const adminGetController = (req, res, next) => {
 
 const adminPostController = (req, res, next) => {
     const obj = new Product(req.body.title, req.body.size);
-    obj.storeData();
-    //  console.log( Product.fetchAll());
-    res.redirect('/shop');
+    obj.storeData().then(result => {
+        res.redirect('/shop');
+    });
 }
 
 module.exports = { adminGetController, adminPostController };
