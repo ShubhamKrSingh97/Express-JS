@@ -1,14 +1,22 @@
 
-const db=require('../util/database');
+const Sequelize=require('sequelize');
+const sequelize=require('../util/database');
 
-module.exports = class Product {
-    constructor(title, price) {
-        this.title = title;
-        this.price = price;
+const Product=sequelize.define('productDetails',{
+    id:{
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    name:{
+        type: Sequelize.STRING,
+        allowNull:false
+    },
+    size:{
+        type: Sequelize.STRING,
+        allowNull:false
     }
+});
 
-    storeData() {
-       return db.execute('Insert into productDetails(name,size)values(?,?)',[this.title,this.price]);
-    }
-
-};
+module.exports=Product;

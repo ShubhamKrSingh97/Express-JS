@@ -7,10 +7,10 @@ const adminGetController = (req, res, next) => {
 }
 
 const adminPostController = (req, res, next) => {
-    const obj = new Product(req.body.title, req.body.size);
-    obj.storeData().then(result => {
-        res.redirect('/shop');
-    });
+    Product.create({
+        name:req.body.title,
+        size:req.body.size,
+    }).then(res.redirect('/'));
 }
 
 module.exports = { adminGetController, adminPostController };

@@ -6,7 +6,7 @@ const shopRoutes = require('./routes/shop');
 const contactRoutes = require('./routes/contact');
 const successRoutes = require('./routes/success');
 const errorRoutes=require('./routes/error');
-
+const sequelize=require('./util/database');
 const path = require('path');
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,4 +20,7 @@ app.get('/',shopRoutes); //base url
 
 //To handle invalid routes
 app.use(errorRoutes);
-app.listen(3000);
+//connecting to the Database
+sequelize.sync().then(()=>{
+    app.listen(3000);
+})
